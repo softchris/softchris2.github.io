@@ -1,9 +1,10 @@
 ---
 layout: post
-category : lessons
-tagline: "Supporting tagline"
-tags : [intro, beginner, jekyll, tutorial]
+category : angular
+tagline: "angular shopping cart"
+tags : [tutorial, angular, javascript]
 ---
 {% include JB/setup %}
 
 # Angular
+Something about angular
