@@ -1,7 +1,7 @@
 ---
 layout: post
 category : angular
-tagline: "angular animate"
+tagline: "bring your app to life"
 tags : [tutorial, angular, javascript, animation]
 ---
 {% include JB/setup %}
@@ -76,6 +76,7 @@ This defines what animation to use, what properties to animate, for how long etc
 	.aclass-add{  
 		transition : color 1s linear;
 	}
+
 This means we will animate **color** property , for **1 second**, using a **linear algorithm** 
 
 ### Active stage
@@ -86,6 +87,7 @@ This class trigers the animation
 	.aclass-add-active{
 
 	}
+
 This active class isn't needed when adding or removing something but is needed when dealing with enter/leave so it's a good rule of thumb to include it.
 
 ### End stage
@@ -158,6 +160,7 @@ app.css
 		min-height: 200px;
 		box-shadow: 0 10px 6px -6px #777;
 	}
+
 In this case we get a content that comes flying from the bottom to the top..
 
 ### ng-repeat
@@ -173,6 +176,7 @@ index.html
 	<div class="item" ng-repeat="item in items">
 	{{ item }}
 	</div>	
+
 Then let's setup the animations:
 
 app.css
@@ -189,6 +193,7 @@ app.css
 		opacity: 1.0;
 		left: 0;
 	}
+
 #### Removing
 Let's add some code so we can remove the item from the list
 
@@ -197,6 +202,7 @@ Let's add some code so we can remove the item from the list
 	<div class="item" ng-repeat="item in items" ng-click="remove($index)">
 	{{ item }}
 	</div>
+
 As you an see we just added an ngClick to with a callback to a remove method..
 
 And the css then, it looks pretty much like the **enter** css.
@@ -223,6 +229,7 @@ So this was just a short post to get you started and say it isn't all that hard 
 	https://github.com/softchris/angular-animate-examples
 
 ## Further reading
+
 To deepdive please have a look at the following
 
 ### Official documentation
