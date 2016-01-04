@@ -12,7 +12,7 @@ So animation... It is built into angular, well angular animate that is. And it i
 Why animate stuff in the first place? Well it looks nice and its more fun to develop. But remember, less is more..
 
 ## Installation
-### Fetch
+
 	bower install angular
 	bower install angular-animate
 ### Bootstrap
@@ -223,7 +223,8 @@ So this was just a short post to get you started and say it isn't all that hard 
 	https://github.com/softchris/angular-animate-examples
 
 ## Further reading
-### official documentation
+To deepdive please have a look at the following
+### Official documentation
 
 	http://www.nganimate.org/
 ### Deep diving
