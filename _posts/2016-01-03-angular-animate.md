@@ -224,6 +224,7 @@ So this was just a short post to get you started and say it isn't all that hard 
 
 ## Further reading
 To deepdive please have a look at the following
+
 ### Official documentation
 
 	http://www.nganimate.org/
