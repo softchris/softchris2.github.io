@@ -227,6 +227,7 @@ To deepdive please have a look at the following
 ### Official documentation
 
 	http://www.nganimate.org/
+
 ### Deep diving
 Have a look at the excellent course "Animating AngularJS Applications" by Kevin Weeks on Pluralsight
 
