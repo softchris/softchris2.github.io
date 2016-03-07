@@ -1,8 +1,8 @@
 ---
 layout: post
 category : angular
-tagline: "angular heart browserify"
-tags : [tutorial, angular, javascript, browserify, nodejs]
+tagline: "angular attribute directives"
+tags : [tutorial, angular, javascript]
 ---
 {% include JB/setup %}
 
