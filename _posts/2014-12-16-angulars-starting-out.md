@@ -1,3 +1,11 @@
+---
+layout: post
+category : angular
+tagline: "first steps"
+tags : [tutorial, angular, javascript]
+---
+{% include JB/setup %}
+
 # Angular
 
 So angularjs. Its easy to explain all the concepts and make this articles really long but as a developer I want to see code very early and I want information given to me in incremental steps. So if you are like me this should be really fun and hopefully educational.
