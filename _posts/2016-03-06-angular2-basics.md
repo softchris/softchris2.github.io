@@ -279,12 +279,15 @@ In Angular 2 these disappear and becomes
 #### interpolation
 
 Angular 1 
-
-	\\\{\\\{ vm.movie.title \\\}\\\}
+	{% raw %}
+	{{ vm.movie.title }}
+	{% endraw %}
 
 Angular 2 
 
-	\\\{\\\{ movie.title \\\}\\\}
+	{% raw %}
+	{{ movie.title }}
+	{% endraw %}
 
 We lost the the vm ( this )
 
