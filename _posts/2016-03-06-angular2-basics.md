@@ -1,3 +1,11 @@
+---
+layout: post
+category : angular
+tagline: "angular 2 basics"
+tags : [tutorial, angular2, javascript, angular, typescript ]
+---
+{% include JB/setup %}
+
 # Angular 2
 
 ## Installation
