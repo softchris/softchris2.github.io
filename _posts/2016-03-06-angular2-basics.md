@@ -280,11 +280,11 @@ In Angular 2 these disappear and becomes
 
 Angular 1 
 
-	"{{ vm.movie.title }}"
+{{ vm.movie.title }}
 
 Angular 2 
 
-	"{{ movie.title }}"
+{{ movie.title }}
 
 We lost the the vm ( this )
 
