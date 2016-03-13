@@ -20,14 +20,23 @@ This blogpost is based on you having read the first part [Angular 2 basics part 
 
 OR
 
-	<div> {{ title }} </div>
+	<div>
+		{% raw %} 
+		{{ title }}
+		{% endraw %} 
+	</div>
 
 ## Components
 So we learned about how to create components, 
 
 	@Component({
 		selector : 'app',
-		template : `<h1>{{ title }}</h1>`
+		template : `
+			<h1>
+			{% raw %}
+			{{ title }}
+			{% endraw %}
+			</h1>`
 	})
 	export class App {
 		title = 'chris';
@@ -38,7 +47,12 @@ how to place components in components
 	
 	@Component({
 		selector : 'app',
-		template : `<h1>{{ title }}</h1>
+		template : `
+			<h1>
+				{% raw %}
+				{{ title }}
+				{% endraw %}
+			</h1>
 			<other></other>
 		`,
 		directives : [ OtherComponent ]
@@ -64,7 +78,12 @@ and inject them
 
 	@Component({
 		selector : 'app',
-		template : `<h1>{{ title }}</h1>
+		template : `
+			<h1>
+			{% raw %}
+			{{ title }}
+			{% endraw %}
+			</h1>
 			<other></other>
 		`,
 		providers : [ Service ]
@@ -149,8 +168,9 @@ Well in angular 2 there are two ways to deal with it.
 1) local template variable
 
 	<input #in />
-
+	{% raw %}
 	{{ in.value }}
+	{% endraw %}
 
 	<button (click)="save(in.value)"></button>
 
@@ -167,8 +187,10 @@ We then refer to it in our save call like
 So we lost our hash \#. 
 
 However we don't see the interpolation binding happening updating, until we press save button
-
+	
+	{% raw %}
 	{{ in.value }}
+	{% endraw %}
 
 So let's fix that
 
@@ -194,7 +216,9 @@ This one is obviously less verbose than 2)
 
 Usage
  
+	{% raw %}
 	{{ movie.name | uppercase }}
+	{% endraw %}
 
 Built in  
 
@@ -247,7 +271,11 @@ And usage:
 
 	@Component({
 		selector : 'calculator',
-		template : `{{ item.number | power:2 }}`,
+		template : `
+		{% raw %}
+		{{ item.number | power:2 }}
+		{% endraw %}
+		`,
 		pipes : [ PowerPipe ]
 	})
 	export class MovieComponent {
@@ -482,9 +510,13 @@ And define a component
     template : `
     <div style="border: solid 1px lightgray; padding: 10px; border-radius:5px">
         <div *ngFor="#jedi of jedis">
+			{% raw %}	
             {{ jedi.name }}
+			{% endraw %}
         </div>
+		{% raw %}	
         {{ errorMessage }}
+		{% endraw %}
     </div>
     `     
 	})
@@ -523,7 +555,9 @@ We actually have two ways to handle this
 And in the template
 
 	<div *ngFor="#jedi of jedis">
+		{% raw %}
         {{ jedi.name }}
+		{% endraw %}
     </div>
 
 2) 
@@ -533,7 +567,9 @@ And in the template
 And in the template
 
 	<div *ngFor="#jedi of jedis | async">
+		{% raw %}
         {{ jedi.name }}
+		{% endraw %}
     </div>
 
 NOTICE the difference **| async**
@@ -555,7 +591,9 @@ In the component we can handle this in two ways, either :
 Which means our template looks like this
 
 	<div *ngFor="#jedi of promiseJedis | async">
+			{% raw %}
             {{ jedi.name }}
+			{% endraw %}
     </div>
 
 Or we do the classic .then() behaviour with
@@ -567,7 +605,9 @@ Or we do the classic .then() behaviour with
 If doing this version then no async pipe
 
 	<div *ngFor="#jedi of promiseJedis">
+			{% raw %}
             {{ jedi.name }}
+			{% endraw %}
     </div>
 
 
@@ -746,7 +786,9 @@ First off lets go to the list page and create our detail link
 
 	<div *ngFor="#jedi of jedis">
         <a href="" [routerLink] ="['Jedi', { id: jedi.id }]">
+			{% raw %}
             {{ jedi.name }}
+			{% endraw %}
         </a>
     </div>
 
@@ -787,7 +829,9 @@ NOTE in a real system we should probably have a getJediByDetail() method that go
 2)
 
 	<div *ngIf="jedi">
+			{% raw %}
             {{ jedi.name }}
+			{% endraw %}	
     </div>
 
 3)
