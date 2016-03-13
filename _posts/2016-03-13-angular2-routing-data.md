@@ -1,3 +1,11 @@
+---
+layout: post
+category : angular2
+tagline: "routing + data fetching"
+tags : [tutorial, angular2, javascript]
+---
+{% include JB/setup %}
+
 # Angular 2 - routing + data
 
 This blogpost is based on you having read the first part [Angular 2 basics part I](http://softchris.github.io/angular/2016/03/06/angular2-basics)
