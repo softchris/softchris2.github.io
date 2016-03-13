@@ -623,7 +623,9 @@ With the accompanying import
 
 	import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 
-<router-outlet> is like ng-view in angular 1 as you probably guessed.
+	<router-outlet> 
+
+is like ng-view in angular 1 as you probably guessed.
 
 Let's create links
 
