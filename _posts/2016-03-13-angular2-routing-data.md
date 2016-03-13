@@ -761,6 +761,7 @@ Then lets go to our detail page and retrieve our record and display it
 1) we need fetch correct record
 
 2) we need to render it in our template
+
 3) create a back link to our list = adding ROUTER_DIRECTIVES
 
 
