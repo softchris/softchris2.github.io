@@ -792,3 +792,8 @@ So that is pretty much it. Congrats if you read so far..
 You got more bindings, how to fetch data but also how to handle routing..
 
 Next time I will be talking about how data can flow through an application using Observables..
+
+
+Full code is available at :
+
+[Angular 2 data + routing repo](https://github.com/softchris/angular2-routing-data)
