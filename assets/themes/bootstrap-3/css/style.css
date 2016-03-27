@@ -15,12 +15,23 @@
 
 /* Jekyll Bootstrap Colors */
 h1, h2, h3, h4 {
-  color: #f22430;
+  color: white;
 }
 #footer {
   background-color: #fdcd60;
 }
 
+a {
+  font-weight:bold;
+}
+
+.highlighter-rouge > .highlight{
+  border-radius : 7px;
+}
+
+.hightlight > code {
+  padding : 17px;
+}
 
 
 /* posts index */
