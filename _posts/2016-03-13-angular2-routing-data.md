@@ -1,6 +1,6 @@
 ---
 layout: post
-category : angular2
+category : angular
 tagline: "routing + data fetching"
 tags : [tutorial, angular2, javascript]
 ---
