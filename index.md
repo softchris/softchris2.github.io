@@ -17,7 +17,7 @@ Currently I organize 4 meetup groups for over 1100 developers.. In truth co orga
     
 ## Latest posts
 
-<div class="posts">
+<div class="posts col-md-10">
   
   {% for post in site.posts %}
   <div style="border-bottom:solid 1px lightgray"> 
@@ -31,6 +31,19 @@ Currently I organize 4 meetup groups for over 1100 developers.. In truth co orga
   </div>
   {% endfor %}
 </div>
+<div class="col-md-2">
+  {% assign tags = site.tags | sort %}
+  {% for tag in tags %}
+  <span class="site-tag">
+      <a href="/tags.html#{{ tag | first | slugify }}-ref"
+          style="font-size: {{ tag | last | size  |  times: 4 | plus: 80  }}%">
+              {{ tag[0] | replace:'-', ' ' }} ({{ tag | last | size }})
+      </a>
+  </span>
+  {% endfor %}
+  
+  
+</div> 
 
 
 
