@@ -17,11 +17,20 @@ Currently I organize 4 meetup groups for over 1100 developers.. In truth co orga
     
 ## Latest posts
 
-<ul class="posts">
+<div class="posts">
+  
   {% for post in site.posts %}
-    <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
+  <div style="border-bottom:solid 1px lightgray"> 
+    <h3>  
+      <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a>
+    </h3>  
+    <div style="color:grey; font-size: smaller">{{ post.date | date_to_string }}</div>   
+    {{ post.content | strip_html | truncatewords:75}}<br>
+    <a href="{{ post.url }}">Read more...</a><br><br>
+   
+  </div>
   {% endfor %}
-</ul>
+</div>
 
 
 
