@@ -28,15 +28,15 @@ Typescript is about dealing with types. You should use types whenever possible i
 
 **Any** is the base type that every other type stems from. Let's look at few examples using types.
 
+```typescript
+var val:number = 4;
 
-	var val:number = 4;
-
-	var val2 = 4 // type inference, typescript makes an honest attempt to guess your type.
-	val = '3'  // illegal according to compiler as '3' is a string
-	val2 = false; // also illegal as compiler has inferred val2 to be of type number
-	var val3:any = 'a string';
-	val3 = false;  // legal as any allows anything to be assigned to it. Avoid
-
+var val2 = 4 // type inference, typescript makes an honest attempt to guess your type.
+val = '3'  // illegal according to compiler as '3' is a string
+val2 = false; // also illegal as compiler has inferred val2 to be of type number
+var val3:any = 'a string';
+val3 = false;  // legal as any allows anything to be assigned to it. Avoid
+```
 
 #### Types in functions
 
