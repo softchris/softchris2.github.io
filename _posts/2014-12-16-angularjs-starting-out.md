@@ -70,6 +70,7 @@ So for angular to make something out of this, we need to configure it in a way s
 
 Lets just fokus on our javascript for a bit. 
 
+```js
     var app= angular.module('app',[])
 
     app.config(function($routeProvider) {
@@ -95,7 +96,7 @@ Lets just fokus on our javascript for a bit.
 
         .otherwise('/start');
 	}); 
-
+```
 
 Wooah.. Lot's of things at once. Let's break it down
 
