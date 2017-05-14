@@ -12,15 +12,15 @@ writing in markdown..*
 I am a developer since 10 years roughly.. I love to code and spread knowledge.
 I love javascript and its accompanying frameworks such as grunt, gulp, angular, react etc..
 
-Google Developer Expert,  [link](https://developers.google.com/experts/people/christoffer-noring)
-Telerik Developer Expert [link](http://developer.telerik.com/community/developer-experts/)
+Google Developer Expert,  [Google Developer Expert](https://developers.google.com/experts/people/christoffer-noring)
+Telerik Developer Expert [Telerik Developer Expert](http://developer.telerik.com/community/developer-experts/)
 I am currently writing a book on RxJS found at angular.io/resources
 
 ## Public speaking
 I have done numerous public speaking at Tech conferences. If you want to hire me as a technical speaker contact me on Twitter @chris_noring or [Linked In](https://www.linkedin.com/in/christoffer-noring-3257061/)
 
 Here is a complete listing of my speaking engagements:
-(Speaking engagements)[http://lanyrd.com/profile/chris_noring/]
+[Speaking engagements](http://lanyrd.com/profile/chris_noring/)
 
 ## Organizer
 Currently I organize 5 meetup groups for over 3000 developers.. In truth co organizers and the people who attend makes me better. It is a privilege to stand in front of you each and everytime and present something inspiring.
