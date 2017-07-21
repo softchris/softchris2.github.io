@@ -275,7 +275,8 @@ The second concept was that of **const**. As expected it allows you to define a 
 	PI = 3  // cannot be assigned to
 
 	const obj = {  test : 'ABC' }
-	obj.test = 'DEF' // cannot be assigned to, whole literal is protected 
+	obj.test = 'DEF' // allowed 
+	obj = { test : 'new obj' } // not allowed, the top level reference is protected
 
 
 ### Arrow functions
