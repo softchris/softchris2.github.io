@@ -11,6 +11,7 @@ I love javascript and its accompanying eco system such as grunt, gulp, webpack  
 
 Google Developer Expert,  [Google Developer Expert](https://developers.google.com/experts/people/christoffer-noring)
 Telerik Developer Expert [Telerik Developer Expert](http://developer.telerik.com/community/developer-experts/)
+
 I am currently writing a book on RxJS found at angular.io/resources RxJS Ultimate
 
 ## Public speaking
@@ -23,27 +24,25 @@ Here is a talk from ngVikings conference
 [RxJS - everything is a stream](https://opbeat.com/community/posts/rxjs-everything-is-a-stream-by-christoffer-noring/)
 
 ### Upcoming talks in 2017
-**September**
-Talk title: GraphQl vs REST 
+#### September
+
 [Frontend Connect Warsaw, Poland 22-23 Sep](http://frontend-con.io/#speakers)
+, Talk title: GraphQl vs REST 
 
-Talk title : TBD
-[Nativescript Developer day, Rotterdam, Netherlands 29 Sep]
+[Nativescript Developer day, Rotterdam, Netherlands 29 Sep]() ,Talk title : TBD
 
-**October**
-Talk title(s): HOW SPAS GOT THEIR GROOVE BACK STARRING ANGULAR AND RXJS 
-[Angular Mix, Orlando 10-12 Oct](https://angularmix.com/#!/speakers/Christoffer%20Noring)
 
-Talk title(s): React + Redux  & RxJS 
-[International Javascript Conference, Munich 23-27 Oct](https://javascript-conference.com/programm-de/)
+#### October
+[Angular Mix, Orlando 10-12 Oct](https://angularmix.com/#!/speakers/Christoffer%20Noring), Talk title(s): HOW SPAS GOT THEIR GROOVE BACK STARRING ANGULAR AND RXJS 
 
-**November**
+[International Javascript Conference, Munich 23-27 Oct](https://javascript-conference.com/programm-de/), Talk title(s): React + Redux  & RxJS 
 
-Talk title(s): RxJS 
-[Oredev, Malmo 6-10 Nov](http://oredev.org/2017/sessions)
+#### November
+[Oredev, Malmo 6-10 Nov](http://oredev.org/2017/sessions), Talk title(s): RxJS 
 
-Talk title(s): TBD 
-[DevReach, Sofia 13-14 Nov](http://devreach.com/)
+[DevReach, Sofia 13-14 Nov](http://devreach.com/), Talk title(s): TBD 
+
+
 
 ## Organizer
 Currently I organize 6 meetup groups for over 3000 developers.. In truth co organizers and the people who attend makes me better. It is a privilege to stand in front of you each and everytime and present something inspiring.
@@ -51,6 +50,7 @@ Currently I organize 6 meetup groups for over 3000 developers.. In truth co orga
 I live in London nowadays so it's mostly the meetups here that I have time to actively manage.
 
 Here are my groups:
+
 [London Javascript](https://www.meetup.com/London-Javascript/)
 
 [Nativescript London](https://www.meetup.com/NativeScript-London/)
