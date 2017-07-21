@@ -7,269 +7,115 @@ tags : [tutorial, angular2, javascript, typescript]
 {% include JB/setup %}
 
 
-# angular 2
+# Angular 4.x
 
-## supported languages
+Angular is component centric framework that is a complete rewrite of AngularJS. It uses Typescript as a default language to create apps in. It also utilises something called ES2015 imports to refer to external files or modules as they are also called.
 
-- es5
-- es6
-- typescript
-- Dart
-
+In this post we will learn the following:
+- bootstrapping and what the core parts are
+- introductory knowledge on angular-cli
+- components and modules
+- services
+- dealing with HTTP
 
 ## Bootstrapping angular 2
 
-	index.html
-	app/main.ts
-	app/movie.component.ts
-
-We need a bunch of sript tags to make everything work:
-
-	<!-- IE required polyfills, in this exact order -->
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.1/es6-shim.js"></script>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.20/system-polyfills.js"></script>
-  	<script src="https://npmcdn.com/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
-
-  	<!-- Angular polyfill required everywhere -->
-  	<script src="https://code.angularjs.org/2.0.0-beta.8/angular2-polyfills.js"></script>
-
-  	<script src="https://code.angularjs.org/tools/system.js"></script>
-    <script src="https://code.angularjs.org/tools/typescript.js"></script>
-  	<script src="https://code.angularjs.org/2.0.0-beta.8/Rx.js"></script>
-  	<script src="https://code.angularjs.org/2.0.0-beta.8/angular2.dev.js"></script>
-  	<script src="https://code.angularjs.org/2.0.0-beta.8/router.dev.js"></script>
-  	<script src="https://code.angularjs.org/2.0.0-beta.8/http.dev.js"></script>
-
-And calling an entry point
-
-	<script>
-      System.config({
-        transpiler: 'typescript', 
-        typescriptOptions: { emitDecoratorMetadata: true }, 
-        packages: {
-          'api': {defaultExtension: 'ts'}, 
-          'app': {defaultExtension: 'ts'} 
-        } 
-      });
-    System.import('app/main')
-          .then(null, console.error.bind(console));
-    </script>
-
-System.import('app/main') means we are looking for a main.ts under /app
+Because I want you to get going as soon as possible the recommended approach for bootstrapping is to scaffold a new project with @angular-cli. 
 
 
-And lastly we need to call a component that is the entry point to our application
-	 	
+To do that we need to ensure we have NodeJs installed. You can download it from here [NodeJs download](https://nodejs.org/en/download/)
 
-	<body>
-  		<movie>Loading Demo ...</movie>
-	</body>	
+After that is installed it is time to install the @angular-cli. This is done through the Node Package Manager, NPM that comes with your NodeJs install. Let's type the following to download @angular-cli
 
-Let's look at main.ts more in detail
+	npm install -g @angular-cli
 
-	 import { bootstrap } from 'angular2/platform/browser';
-  	 import { MovieComponent } from './movie.component';
+Now it is time to scaffold our project. I.e create a stub for a project that we can keep adding things to. So let's now use the @angular-cli for this:
 
-     bootstrap(MovieComponent)
-       .then(success => console.log(`Bootstrap success`))
-       .catch(error => console.log(error));
-	
-Importing bootstrap using the module loading from ES6
+	ng new <project name>
 
-	 1) import { bootstrap } from 'angular2/platform/browser';
+To find your created project type the following:
 
-Loading our starting component
+	cd <project name>
 
-	 2) import { MovieComponent } from './movie.component';
+To start the project and have it shown in a browser you type:
 
-And finally the bootstrapping itself
+	ng serve
 
-	3) bootstrap(MovieComponent)
-       .then(success => console.log(`Bootstrap success`))
-       .catch(error => console.log(error));
+If you now navigate to localhost:4200 in your browser it will display 'app works'.
 
-OK so at this point we have bootstrapped the app with a component, movie
+That was simple. Now let's talk about some important parts that makes up your application.
 
-	import { Component } from 'angular2/core';
+### The core parts
+
+- main.ts
+- app.module.ts
+- app.component.ts
+
+These files have different responsibilities.
+The main.ts file is our bootstrapper the thing that bootstraps the application and points out our entry point. Let's look at the content of main.ts :
+
+**main.ts**
+
+	import { enableProdMode } from '@angular/core';
+	import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+	import { AppModule } from './app/app.module';
+	import { environment } from './environments/environment';
+
+	if (environment.production) {
+  		enableProdMode();
+	}
+
+	platformBrowserDynamic().bootstrapModule(AppModule);
+
+The crucial part here is calling the function bootstrapModule() with a module as an argument. As you can see this points to AppModule which resides in the file app.module.ts, looking like this:
+
+**app.module.ts**
+
+	import { BrowserModule } from '@angular/platform-browser';
+
+	import { AppComponent } from './app.component';
+
+	@NgModule({
+  		declarations: [
+    		AppComponent
+  		],
+  		imports: [
+    		BrowserModule,
+  		],
+  		providers: [ ],
+  		bootstrap: [AppComponent]
+	})
+	export class AppModule { }
+
+This file creates our root module that we use to bootstrap the entire application. They two keywords we need to keep track of right now are `bootstrap` and `declaration`.
+The `bootstrap` keyword is an array expecting the component that will be the entry point for the application. As you can see it points to AppComponent. The `declarations` keyword contains an array. Here you put all the components the module should consist of. This is were you make components aware of each other. A component put in the declarations keyword can be used in the template of another component. A component needs to belong to exactly one module. Let's have a look at our entry point, the AppComponent:
+
+**app.component.ts**
+
+	import { Component } from '@angular/core';
 
 	@Component({
-	  selector: 'movie',
-	  templateUrl: 'movie.html' 
+  		selector: 'app-root',
+  		templateUrl: './app.component.html',
+  		styleUrls: ['./app.component.css']
 	})
-	export class MovieComponent {
-	  movie:Movie = new Movie('Lord of the rings');
-	  color = 'blue';
-	  
-	  hi(){
-	    alert('hi');
-	  }
+	export class AppComponent {
+  		title = 'app lives'
 	}
 
-	// movie.html
-    <h3>{{movie.getName()}}</h3>
-    <h3 [innerText]="movie.getName()"></h3>
-    <div [style.color]="color">{{movie.getName()}}</div>
-    <div>
-      <button (click)="hi()">Say hi</button>
-    </div>
-	  
-	
-Importing Component is needed to create any component, look at it as a directive in angular 1 for now.
+Our component consists of two parts, the decorator @Component and the backing class AppComponent. By decorating the class Angular is able to make out what it is. As you can see the decorator takes an object that has different properties on it. The properties mentioned so far are:
 
-	import { Component } from 'angular2/core';
+- selector, what your component will be called if inside of a template
+- template/templateUrl, this is where you define the HTML for the app. It's templating where you get to mix and match between HTML and data properties you want to display
+- styles/styleUrls, this is where you define the CSS
 
-Next thing to happen is that we annotate a class
+## Building our app
 
-	@annotation
-	class SomeClass {
+So far we have introduced some bootstrapping, that is basically producing a 'hello world' of our app. To start adding more things to our app we need to understand what we are doing. The first thing we need to understand is that there are different types of binding that allows us to show data but also act when data is changed.
 
-	}
-
-And give it some extra properties. In this case angular gives component properties like what tagname, template etc..
-
-	@Component({
-	  selector: 'movie',
-	  templateUrl: 'movie.html' 
-	})
-	export class MovieComponent {
-	  movie:Movie = new Movie('Lord of the rings');
-	  color = 'blue';
-	  
-	  hi(){
-	    alert('hi');
-	  }
-	}
-
-	// movie.html
-    <h3>{{movie.getName()}}</h3>
-    <h3 [innerText]="movie.getName()"></h3>
-    <div [style.color]="color">{{movie.getName()}}</div>
-    <div>
-      <button (click)="hi()">Say hi</button>
-    </div>
-	  
-
-Oh another piece of interest is the
-
-	export class MovieComponent
-
-This is ES6 way of creating something public in the file so that when you import this file as we do in main.ts it would get this definition
-
-	import { MovieComponent } from './movie.component'
-
-
-Angular 1 would say
-
-	function Movie(name){
-		this.name = name;
-	}
-
-	Movie.prototype.getName = function(){
-		return this.name;
-	}
-
-	angular
-		.module('app')
-		.directive('movie', function(){
-			template : '<h3>{{ movie.getName() }}</h3> <button ng-click="hi()"></button>',
-			controller : function(){
-				$scope.movie = new Movie('Top Gun');
-				$scope.sayHi = function(){
-					alert('hi')
-				}
-			}
-		});
-
-### Refactoring
-We don't want an app that only bootstraps a movie so first thing we do is to change in the boostrapping in main.ts. Let's change it to this:
-
-	import { bootstrap } from 'angular2/platform/browser';
-    import { MainComponent } from './main.component';
-
-    bootstrap(MainComponent)
-    .then(success => console.log(`Bootstrap success`))
-    .catch(error => console.log(error));
-
-I.e we bootstrap a MainComponent instead. Let's see what that one looks like:
-
-	import { Component } from 'angular2/core';
-	import { MovieComponent } from './movie.component';
-	
-	@Component({
-	  selector: 'main-component',
-	  template: `
-	    <movie></movie>
-	  `,
-	  directives : [ MovieComponent ]
-	})
-	export class MainComponent {
-	 
-	}
-
-We see here that it points to a <movie> -tag in its template but that we also introduced a *directives* property on the component.. The reason for doing so is that if we want to use other components inside of your template you need you need to make angular aware of it by doing the two following steps:
-
-		import { MovieComponent } from './movie.component';
-
-		directives : [ MovieComponent ]
-
-More on that in the next chapter.
-
-### Summary of bootstrapping
-
-So obviously if we want an entry point for an application we should maybe call it something like 
-
-	<main-component></main-component>
- 
-and not 
-
-	<movie></movie>
-
-We learnt anyway that calling bootstrap with our component in main.ts was what made everything work..
-
-We learned about a concept called component which we will learn more about and that an annotation made it into a directive like construct
-
-## Building a real app
-
-Ok so we looked at basic bootstrapping and creating an app with one component in it..
-
-### Built in directives
-
-But what about all the nice built in directives from angular 1 like ng-repeat, ng-if, ng-show. They are still there right?
-
-#### ng-repeat
-
-This one turned into *ngFor with a little difference
-
-You used to type
-
-	<div ng-repeat="item in items"></div>
-
-Now its
-
-	<div *ngFor="#item in items"></div>
-
-So no more dashes, we added a *\** char in the beginning and we added a *\#* to the item, and lastly we do *of* instead of in.
-
-#### ng-if
-
-This one turned into \*ngIf and works exactly the same as before.
-
-#### ng-style, ng-src ng-href, ng-class
-
-In Angular 2 these disappear and becomes
-
-	<div [class] = "condition ? 'class1' : 'class2'" 
-	<div [style.visibility] = "condition ? 'class1' : 'class2'"
-
-	<img [src]="path"
-
-	<a [href]="link"
-
-#### Summary
-
-40 + directives disappears
-
-### binding
+### Bindings
+These are the bindings that exist:
 
 	- interpolation
 	- one way binding
@@ -277,11 +123,7 @@ In Angular 2 these disappear and becomes
 	- two way binding
 
 #### interpolation
-
-Angular 1 
-	{% raw %}
-	{{ vm.movie.title }}
-	{% endraw %}
+Interpolation is about interpreting what is there and output it to the screen. For this we use the curly brackets {{}}. Inside of our curly brackets is an expression that is evaluated and then output to the screen. It can look like the following:
 
 Angular 2 
 
@@ -289,296 +131,365 @@ Angular 2
 	{{ movie.title }}
 	{% endraw %}
 
-We lost the the vm ( this )
+Here we try to render a variable movie that has a title property on it. Let us extend our app.component.ts class to ensure that the above code works:
 
-#### One way binding
+	//imports omitted
 
-Angular 1
+	@Component({
+  		selector: 'app-root',
+  		template: `
+		  {{ movie.title }}  
+		`,
+  		styleUrls: ['./app.component.css']
+	})
+	export class AppComponent {
+  		title = 'app lives';
+		movie = { title : 'Star Wars' }
+	}
 
-	<div ng-bind="prop"></div>
+As you can see here we needed to add the movie property to our class. Which meant it was available for our template to render.
 
-Angular 2
+#### one-way, property binding
+In this type of binding we can bind to attributes on an element. Imagine the following code:
 
-	<div [innerText]="prop"></div>
+	<div [title]="titleProperty">
 
-Other example
+The component will therefore need the field titleProperty like so:
 
-	<div [style.color]="color"></div>
-
-Essentially whats within brackets is the element attribute and whats on the other side of = is from our component.
-
+	@Component({})
+	export class Component {
+		titleProperty='title'
+	}
+The square bracket [] is what creates the property binding and it needs to point to a property on your backing component class.
 #### event binding
+There are tons of events that an element can respond to. The one most people use is the click event. Use it like so:
 
-Angular 1
+	<div (click)="save()">
 
-	<div ng-click="method()"></div>
-	<div ng-blur="blur()"></div>
-	<div ng-change="change()"></div>
+This will point to a method save() on the backing class:
 
-Angular 2
-
-	<div (click)="method()"></div>
-	<div (blur)="blur()"></div>
-	<div (change)="change()"></div>
-
-#### two way binding
-
-Angular 1
-
-	<input ng-model="vm.movie.name" />
-
-Angular 2
-
-	<input [(ngModel)]="movie.name" />
-
-Also called *banana in a box*
-
-### What about factories, services, providers, constant??
-
-The short answer is class. 
-
-In angular 1 a service is created and consumed like so:
-
-	angular
-		.module('app')
-		.service('productService', function(){
-			this.getData = function(){
-				return [];
-			}
-		})
-	
-	angular
-		.module('app')
-		.controller('productController', ProductController );
-
-	ProductController.$inject = ['productService'];
-
-	function ProductController(productService){
-			this.products = productService.getData();
-		}
-
-
-And in Angular2 this becomes:
-
-	import { Injectable } from 'angular2/core';
-
-	@Injectable()
-	export class ProductService {
-		constructor() {
-
-		}
-
-		getData() {
-
-		}
+	@Component({})
+	export class Component {
+		save(){}
 	}
+#### Two-way binding
+The last is two-way binding, it's not really a two-way binding though, more of a shorthand that makes it look like it is a two-way binding. It is essentially an event binding and an attribute binding, looking like this :
 
-And consume it like so:
+	<input [ngModel]="name" (ngModelChange)="name=$event">
 
-	import { Component } from 'angular2/core';
-	import { ProductService } from './products/product.service'
-	
+Our attribute binding is bound to the name property and the event binding is bound to the event ngModelChange. We can write this in one motion though, like this:
+
+	<input [(ngModel)]="name"/>
+
+Everytime you time in the input it will be changed both in the view and in the backing class.
+
+### Core directives
+Ok so we learned to extend our AppComponent class with a property. Now it's time to understand what core functionality we have at our disposal so we can add logic in the template. The most common core directives used for this is:
+
+- *ngIf
+- *ngFor
+
+There are other ones like ngStyle, ngClass and ngSwitch but we will concentrate mainly on the two first mentioned as they are heavily used.
+
+*ngIf is used in the following way:
+
+	<div *ngIf="title"> here is my title {{title}}</div>
+	<div *ngIf="!title"> no title</div>
+
+This directive investigates wether a property is true/false and renders a piece of HTML based on it.
+
+*ngFor is what used to be known as ng-repeat in AngularJS. It is used in the following way:
+
+	<div *ngFor="let item of items">
+	{{ item.title }}
+	</div>
+
+This produces a piece of repeating HTML. The backing component class would have to be extended with the items array for this to work, like so:
+
+	//imports omitted
+
 	@Component({
-		selector : 'test',
-		template : '',
-		providers : [ ProductService ],
-		
+  		selector: 'app-root',
+  		template: `
+		  <div *ngFor="let item of items">
+			{{ item.title }}
+		  </div>  
+		`,
+  		styleUrls: ['./app.component.css']
 	})
-	class SomeOtherService {
-		private service:ProductService;
-
-		constructor(service:ProductService) {
-			this.service = service;	
-			this.products = this.service.getData();	
-		}
-	}
-
-So 2 things to keep track of **providers** property in the component and the injection point in the constructor.. As simple as that and we got a service to play with.
-	
-	providers : [ ProductService ]
-
-	constructor(service:ProductService)
-
-**GOTCHA** adding it to the providers tab made it available. However you don't want to put it in every providers property for every component. Because then it will be transient and not singleton. Put it at highest level component. Example:
-
-	ParentComponent, providers [ Service ] // <= put it here
-
-	ChildComponent // I will know about it
-	ChildComponent // I will know about it
-	ChildComponent // I will know about it
-
-
-
-#### Name collisions - bye bye
-
-In angular 1 we get a name collision if we define two or more productService because it is a global dictionary regardless of module it resides in..
-Last defined service wins, so to speak.
- Angular 2 and modules solves this in an elegant way by the imports
-
-	import { ProductService } as service 1 from './products/product.service'
-	
-	import { ProductService } as service 2 from './feature/product.service'
-
-### Component in depth
-
-Lets recap for a second. We have been playing with a component so far and learned to use certain properties:
-
-	selector : 'some-name'
-
-Here we type the name of the html element.
-
-	template/tempalteUrl
-
-Same function as in angular 1 We give it either a url to a tempalte or the template itself.
-
-	directives : []
-
-If this is a component using other child components we created we need to import those and specify them here.
-
-	providers: []
-
-Lastly providers is an array in which we list services that we mean to use that we can inject into our constructor.. Jus inject them in one place if you mean for them to be singletons and carry a state. Do it as a high up in the hiearchy as possible.
-
-#### Bind data to component
-
-Ok so far we have been talking about component as a kind of directive but being angular 1 devs we remember stuff such as isolated scopes, different type of bindings like @, &, =, <
-
-What about those? 	
-
-Well in angular 2 binding to data was easy for example 
-
-	{{}} 
-
-and 
-
-	<input [value]="model.val" />
-
-And we could also do double binding like so
-
-	<input [(ngModel)]="model.val" />
-
-And binding some data to a component is no different:
-
-	// parent component
-	@Component({
-		template : '<movie-detail [movie]="movieFromComponent"></movie-detail>',
-		directives : [ MovieDetail ]
-	})
-	export class Movies {
-		movie:Movie;
-	}
-
-We just assign our movie prop like an html attribute with [] as binding type
-
-	// actual movie detail
-	import { Component,Input } from 'angular2/core';
-	
-	@Component({
-		template : '{{ movie.name }}'
-	})
-	export class MovieDetail {
-		@Input() movie:Movie;
-	}
-
-And in our movie-detail component we use @Input decorator to inject the data and then display it out on the view. Compare this to doing the following in angular 1
-
-	.directive('movieDetail', function(){
-		return {
-			scope : {
-				movie : '='
-			}
-		};
-	})
-
-So now we know how to bind data but what about callbacks, i.e & ?
-In angular 1 we typed
-
-	<comp callback="update(data)"
-
-	.directive('comp', {
-		scope : {
-			callback : '&'
+	export class AppComponent {
+  		title = 'app lives';
+		movie = { title : 'Star Wars' };
+		items = [{
+			title : 'Star Wars IV'
 		},
- 		controller : function($scope){
-			$scope.click = function(){
-				$scope.callback({ data : 'some data' })
-			}
-		}
-	}) 
-
-	.controller('ctrl', function($scope){
-		$scope.update = function(data) {
-			console.log("data from directive " + data);
-		}
-	})
-
-In angular 2 we solve this with an output property. Consider the following code:
-
-	<selected-movie 
-        [movie]="selectedMovie"
-        *ngIf="selectedMovie"
-        (changed)="changed($event)" >
-    </selected-movie>
-
-I.e assume this component is placed in the template of a parent component that has
- 
-- selectedMovie
-- changed - method declared in its class 
-
-
-The important row here is 
-	
-	(changed) = changed($event)
-
-If you DONT type in $event you **wont** be able to pass data from child component to parent component.
-
-	import { Component,Input,Output, EventEmitter } from 'angular2/core';
-	import { Movie } from './movie.model';
-
-	@Component({
-	    selector : 'selected-movie',
-	    templateUrl : 'select-movie.html' 
-	})
-	export class MovieComponent {
-	    @Output() changed:EventEmitter<Movie> = new EventEmitter<Movie>();
-	    @Input() movie:Movie;
-	    
-	    constructor() {
-	        
-	    }
-	    
-	    hi() {
-	        console.log('saying hi to parent');
-	        this.changed.next(this.movie);
-	        
-	    }
+		{
+			title : 'Star Wars V'
+		},
+		{
+			title : 'Star Wars VI'
+		}]
 	}
 
-	// selected-movie.html
-    <div style="border: solid 2px black; background:grey; padding: 10px; width: 50% ">
-        <strong>Selected movie {{ movie.name }}</strong>
-    </div>
-    <button (click)="hi()" >Say hi to parent</button>
-	    
-Here the following row is of interest:
+## Extending it with services
+Ok so we learned a bit about bootstrapping and a little bit on core directives but all our data lives in the component. That's a lot of noise. It is better if it resides somewhere else, like a service. A service is just a class in a separate file that we tell Angular about. Let's first define our service:
 
-	import { Component,Input,Output, EventEmitter } from 'angular2/core';
+**movie.service.ts**
 
-We imported EventEmitter and Output
+	export class MovieService {
+		getMovies() {
+			return [{
+				title : 'Star Wars IV'
+			},
+			{
+				title : 'Star Wars V'
+			},
+			{
+				title : 'Star Wars VI'
+			}];
+		})
 
-The next row of interest is the Output declaration
+	}
 
-	@Output() changed:EventEmitter<Movie> = new EventEmitter<Movie>();
+This is just a simple class. As you can see we have moved the data from the component into the service. Our component now should look like this:
 
-And lastly the invoking of the event
+**app.component.ts**
 
-	hi() {
-        console.log('saying hi to parent');
-        this.changed.next(this.movie);
-        //this.selected.emit(this.movie);
-    }
+	//imports omitted
+
+	@Component({
+  		selector: 'app-root',
+  		template: `
+		   <div *ngFor="let item of items">
+			{{ item.title }}
+		  </div>    
+		`,
+  		styleUrls: ['./app.component.css']
+	})
+	export class AppComponent {
+  		title = 'app lives';
+		movie = { title : 'Star Wars' };
+		items = [];
+
+		constructor(privat srv: Service) {
+			this.items = srv.getMovies();
+		}
+	}
+
+However this doesn't work quite yet. We need to tell Angular that the service exists. We have provided a service instance to the components constructor above but we have not told Angular on how to find and construct an instance of the Service class. We can do that on component level and module level. We choose to tell the module about this service though :
+
+**app.module.ts**
+
+	import { BrowserModule } from '@angular/platform-browser';
+
+	import { AppComponent } from './app.component';
+
+	import { Service } from './service';
+
+	@NgModule({
+  		declarations: [
+    		AppComponent
+  		],
+  		imports: [
+    		BrowserModule,
+  		],
+  		providers: [ Service ],
+  		bootstrap: [AppComponent]
+	})
+	export class AppModule { }
+
+Note how we added the Service to the providers array:
+
+	providers : [ Service ]
+
+## Create a new component
+Ok so we learned how to move data from component into a service. But we feel that the app.component.ts shouldn't really be the one rendering movies. It is our root component. It would be better if a more dedicated component could do the job, a movies component, so let's create that:
+
+**movies.component.ts**
+
+	@Component({
+		selector : 'movies',
+		template : `
+		<div *ngFor="let movie of movies">
+	  		{{ movie.title }}
+		</div>
+	`
+	})
+	export class MoviesComponent {
+		constructor(private srv:Service){
+			this.movies = srv.getMovies();
+		}
+	}
+
+Which means we can clean up our app.component.ts to look like this:
+
+**app.component.ts**
+
+	//imports omitted
+
+	@Component({
+  		selector: 'app-root',
+  		template: `
+		  <movies></movies> 
+		`,
+  		styleUrls: ['./app.component.css']
+	})
+	export class AppComponent {
+  		title = 'app lives';
+	}
+
+We are almost done. We need to tell the AppModule about this new component so it is actually allowed to place the movies component inside of the template for AppComponent, so let's do that:
+
+	import { BrowserModule } from '@angular/platform-browser';
+
+	import { AppComponent } from './app.component';
+	import { MoviesComponent } from './movies.component'
+
+	import { Service } from './service';
+
+	@NgModule({
+  		declarations: [
+    		AppComponent, MoviesComponent
+  		],
+  		imports: [
+    		BrowserModule,
+  		],
+  		providers: [ Service ],
+  		bootstrap: [AppComponent]
+	})
+	export class AppModule { }
+
+We added the import for our new component like so:
+
+	import { MoviesComponent } from './movies.component'
+
+And we also added it to the declarations list like so:
+
+	declarations: [
+    	AppComponent, MoviesComponent
+  	]	
+
+## Communicate over HTTP
+
+So far we have been displaying static data that lived inside of a service. In a more realistic scenario that data would be accessible on an endpoint somewhere that we would be able to fetch using Ajax. Angular has a Http service just for this. To use it we need to add the HttpModule and simply inject the Http service where we want to use it. So let's start with the import:
+
+**app.module.ts**
+
+	import { BrowserModule } from '@angular/platform-browser';
+	import { HttpModule } from '@angular/http';
+
+	import { AppComponent } from './app.component';
+	import { MoviesComponent } from './movies.component'
+
+	import { Service } from './service';
+
+	@NgModule({
+  		declarations: [
+    		AppComponent, MoviesComponent
+  		],
+  		imports: [
+    		BrowserModule,
+			HttpModule
+  		],
+  		providers: [ Service ],
+  		bootstrap: [AppComponent]
+	})
+	export class AppModule { }
+
+We did two things here, importing the HttpModule :
+
+	import { HttpModule } from '@angular/http';
+
+Adding to the imports keyword:
+
+	imports: [
+    	BrowserModule,
+		HttpModule
+  	]	
+Now we are ready to use it. We simply need to inject in a suitable place, lets create a person.service.ts for this:
+
+**person.service.ts**
+
+	import { Observable } from 'rxjs/Observable';
+	import 'rxjs/add/operator/map';
+
+	export class PersonService {
+		constructor(private http:Http)
+		getPeople(): Observable<any> {
+			return this.http
+			.get('/people')
+			.map( r => r.json() );
+		})
+
+	}
+
+Worth mentioning here is Observable and .map operator. The Observable is an async concept much like a Promise but with a lot more power. The .map operator filters the data so we are able to transform the data into the exact shape we want.  
+
+To consume said service we use dependecy injection which involve:
+
+- telling a module it exists
+- inject it into a component
+- recive the data from the service call
+
+Telling the module, we do that by the following code:
+
+	import { BrowserModule } from '@angular/platform-browser';
+	import { HttpModule } from '@angular/http';
+
+	import { AppComponent } from './app.component';
+	import { MoviesComponent } from './movies.component'
+
+	import { Service } from './service';
+	import { PersonService } from './person.service';
+
+	@NgModule({
+  		declarations: [
+    		AppComponent, MoviesComponent
+  		],
+  		imports: [
+    		BrowserModule,
+			HttpModule
+  		],
+  		providers: [ Service, PersonService ],
+  		bootstrap: [AppComponent]
+	})
+	export class AppModule { }
+
+This involves importing the construct like so:
+
+	import { PersonService } from './person.service';
+
+and adding it to the providers array:
+
+	providers: [ Service, PersonService ]
+
+Now for injecting it into a component:
+
+**people.component**
+
+	import { Component } from '@nagular/core';
+
+	@Component({
+		selector : 'people',
+		template : `
+		<div *ngFor="let person of people">
+		{{ person.title }}
+		</div>
+		`
+	})	
+	export class PeopleComponent {
+		constructor(private personService: PersonService) {
+			this.personService
+			.getPeople()
+			.subscribe( people => {
+				this.people = people;
+			})
+		}
+	}
+
+Ok so this is all the code we need. Worth noting is the call to .subscribe. .subscribe method is called when the data arrives which could be anything from 2ms to 2 minutes. It works much like the .then for a Promise.
+
+In the next post I will cover more advanced topics like routing and custom component with in and output data. 
 
 
-This was the first part on Angular 2 just to get you started.. Hopefully you found that angular 2 doesn't bite and is even really nice.. Both Sublime and Visual Studio Code has excellent support for typescript.. So build a few angular 2 apps, feel the power and the speed and tune in for next part on routing and http coming really soon..
 
-Look into https://github.com/softchris/angular2-simple to see a full functional angular 2 app demonstrating all mentioned concepts..
