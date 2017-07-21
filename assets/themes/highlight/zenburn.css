@@ -5,6 +5,11 @@ based on dark.css by Ivan Sagalaev
 
 */
 
+pre {
+  padding: 0px;
+  border-radius: 0px !important;
+}
+
 .hljs {
   display: block;
   overflow-x: auto;
