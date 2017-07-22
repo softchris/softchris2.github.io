@@ -8,6 +8,8 @@ tags : [tutorial, angular2, javascript]
 
 # Angular 2 - routing + data
 
+this is an old article that will be updated in a couple of days. This is based on the RC, a lot has been changed, check back in a couple of days.
+
 This blogpost is based on you having read the first part [Angular 2 basics part I](http://softchris.github.io/angular/2016/03/06/angular2-basics)
 
 
