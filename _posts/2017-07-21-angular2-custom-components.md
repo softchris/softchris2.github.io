@@ -90,7 +90,6 @@ import { HeroComponent } from './hero.component';
 That's all we need to do to make the module happy. Now let us actually use this component
 
 ## Simple usage
-Let's add our newly created component to app.component.ts.
 
 **app.component.ts**
 
@@ -142,6 +141,7 @@ export class AppComponent {
 class Hero {
   constructor(public name:string) {}
 }
+```
 
 For this to be possible we also need to update the hero.component.ts file so that we can recive an input, so let's update it the following way:
 
