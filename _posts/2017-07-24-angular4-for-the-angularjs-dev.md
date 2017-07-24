@@ -74,12 +74,15 @@ Ok so in AngularJS we had the following bindings at our disposal:
 - event binding
 
 ## one-way binding, interpolation
-This type of binding meant that the only thing that could change, what was displayed on the screen, was if something in the controller changed. It took on the form of interpolation with curly brackets or using the ng-bind directive. It looked like this:
+This type of binding meant that the only thing that could change, what was displayed on the screen, was if something in the controller changed. It took on the form of interpolation with curly brackets or using the ng-bind directive. 
+It looked like this:
 
 ```
+<div>
 {% raw %}
 {{item.name}}
 {% endraw %}
+</div>
 ```
 
 or using the ng-bind directive
@@ -92,7 +95,7 @@ The interpolation looks exactly the same.
 However there is attribute binding as a new thing in Angular 4.x. In AngularJS we used to write the following:
 
 ```
-<div title="{{titleProperty}}">
+<div title="{% raw %}{{titleProperty}}{% endraw %}">
 ```
 
 In Angular 4.x we can use an attribute binding, recognised by the square brackets []:
@@ -121,9 +124,11 @@ and business as ususal
 Ok so we hade one time binding to reduce the number of watchers in AngularJS, if we had too many our app would become sluggish and nobody wants that. So we could solve that in the markup by typing :: before a property when doing interpolation:
 
 ```
+<div>
 {% raw %}
 {{::item.name}}
 {% endraw %}
+</div>
 ```
 
 Angular 4.x is a different story, it takes on a different approach, data isn't changeable unless you explicit state that it should be by hooking up to change events. 
@@ -158,7 +163,10 @@ In Angular 4.x there are only components where there used to be element directiv
 So when defining a route you now write:
 
 ```
-{ route: 'products', component: ProductsComponent }
+let routes = [{ 
+  route: 'products', 
+  component: ProductsComponent 
+}]
 ```
 
 Let's show the old element directive from AngularJS and see how it maps to a component:
@@ -233,9 +241,11 @@ Filters are a thing that can act on both a property as well as a list. The decla
 and to use it:
 
 ```
+<div>
 {% raw %}
 {{ 'bob' | banana:true }}
 {% endraw %}
+</div>
 ```
 
 The corresponding thing in Angular 4.x is this:
