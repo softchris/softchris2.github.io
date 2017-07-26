@@ -2,7 +2,7 @@
 layout: post
 category : angular
 tagline: "the survivalist guide"
-tags : [tutorial, webpack, javascript]
+tags : [tutorial, javascript]
 ---
 {% include JB/setup %}
 
