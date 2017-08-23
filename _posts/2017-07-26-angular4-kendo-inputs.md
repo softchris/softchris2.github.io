@@ -6,7 +6,7 @@ tags : [tutorial, kendo, javascript, angular 4]
 ---
 {% include JB/setup %}
 
-Reading time : 10 min
+Reading time : 10 min 
 
 # My story and the business case for Vendor controls
 Kendo controls are built by the company Progress, for some of you known as Telerik. They are a program control vendor that has a long history of building controls for the web and thereby also a long history of making developers successful on the Web. 
